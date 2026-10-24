@@ -1,0 +1,167 @@
+export default {
+  name: 'marketplace',
+  title: 'Marketplace',
+  type: 'document',
+  fields: [
+    {
+      name: 'title',
+      title: 'Nama Part / Sepeda',
+      type: 'string',
+      description: 'Contoh: Shimano 600 EX Arabesque Crankset 170mm',
+    },
+    {
+      name: 'slug',
+      title: 'URL Slug',
+      type: 'slug',
+      options: { source: 'title' },
+    },
+    {
+      name: 'category',
+      title: 'Kategori',
+      type: 'string',
+      options: {
+        list: [
+          { title: ' Full Bike (Sepeda Utuh)', value: 'full-bike' },
+          { title: 'Frame', value: 'frame' },
+          { title: 'Fork', value: 'fork' },
+          { title: 'Groupset', value: 'groupset' },
+          { title: 'Crankset', value: 'crankset' },
+          { title: 'Cassette / Freewheel', value: 'cassette' },
+          { title: 'Chain / Rantai', value: 'chain' },
+          { title: 'Derailleur', value: 'derailleur' },
+          { title: 'Shifter', value: 'shifter' },
+          { title: 'Brake / Rem', value: 'brake' },
+          { title: 'Brake Lever / Tuas Rem', value: 'brake-lever' },
+          { title: 'Wheelset', value: 'wheelset' },
+          { title: 'Hub', value: 'hub' },
+          { title: 'Spokes / Jari-jari', value: 'spokes' },
+          { title: 'Tire / Ban', value: 'tire' },
+          { title: 'Tube / Ban Dalam', value: 'tube' },
+          { title: 'Handlebar / Bar Set', value: 'handlebar' },
+          { title: 'Stem', value: 'stem' },
+          { title: 'Headset', value: 'headset' },
+          { title: 'Bottom Bracket', value: 'bottom-bracket' },
+          { title: 'Seatpost', value: 'seatpost' },
+          { title: 'Saddle / Sadel', value: 'saddle' },
+          { title: 'Pedal', value: 'pedal' },
+          { title: 'Accessories', value: 'accessories' },
+          { title: 'Lainnya', value: 'other' },
+        ],
+      },
+    },
+    {
+      name: 'brand',
+      title: 'Brand / Merk',
+      type: 'string',
+      description: 'Contoh: Shimano, Campagnolo, Suntour, Nitto, dll',
+    },
+    {
+      name: 'relatedBike',
+      title: 'Sepeda Terkait di Katalog (Opsional)',
+      type: 'reference',
+      to: [{ type: 'bike' }],
+      description: 'Pilih sepeda di katalog yang cocok dengan part ini. Kosongkan jika tidak ada.',
+    },
+    {
+      name: 'price',
+      title: 'Harga (Rp)',
+      type: 'number',
+      description: 'Harga dalam Rupiah, contoh: 2500000',
+      validation: (Rule) => Rule.required().min(0).error('Harga wajib diisi'),
+    },
+    {
+      name: 'condition',
+      title: 'Kondisi',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'New (Baru)', value: 'new' },
+          { title: 'Used - Excellent (Bekas - Mulus)', value: 'excellent' },
+          { title: 'Used - Good (Bekas - Bagus)', value: 'good' },
+          { title: 'Used - Fair (Bekas - Cukup)', value: 'fair' },
+          { title: 'For Parts (Untuk Suku Cadang)', value: 'parts' },
+        ],
+      },
+    },
+    {
+      name: 'year',
+      title: 'Tahun Pembuatan',
+      type: 'number',
+      description: 'Contoh: 1988',
+    },
+    {
+      name: 'description',
+      title: 'Deskripsi Part',
+      type: 'text',
+      rows: 5,
+      description: 'Jelaskan kondisi, spesifikasi, dan detail lainnya',
+    },
+    {
+      name: 'images',
+      title: 'Foto Part',
+      type: 'array',
+      of: [{ type: 'image', options: { hotspot: true } }],
+      description: 'Upload 1-5 foto part dari berbagai angle',
+    },
+    {
+      name: 'sellerName',
+      title: 'Nama Penjual',
+      type: 'string',
+      description: 'Nama lengkap atau nama toko penjual',
+    },
+    {
+      name: 'sellerPhone',
+      title: 'Nomor WhatsApp Penjual',
+      type: 'string',
+      description: 'Format: 628123456789 (tanpa + atau 0 di depan)',
+    },
+    {
+      name: 'sellerLocation',
+      title: 'Lokasi Penjual',
+      type: 'string',
+      description: 'Kota/Kabupaten, contoh: Gianyar, Bali',
+    },
+    {
+      name: 'status',
+      title: 'Status Listing',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Tersedia', value: 'available' },
+          { title: 'Reserved (Dipesan)', value: 'reserved' },
+          { title: 'Terjual', value: 'sold' },
+        ],
+      },
+      initialValue: 'available',
+    },
+    {
+      name: 'isFeatured',
+      title: 'Tampilkan di Homepage?',
+      type: 'boolean',
+      description: 'Centang jika ingin part ini muncul di section "Featured Marketplace" di halaman depan',
+      initialValue: false,
+    },
+  ],
+  preview: {
+    select: {
+      title: 'title',
+      price: 'price',
+      status: 'status',
+      brand: 'brand',
+      media: 'images.0',
+    },
+    prepare({ title, price, status, brand, media }) {
+      const statusLabels = {
+        available: '🟢 Tersedia',
+        reserved: '🟡 Reserved',
+        sold: ' Terjual',
+      }
+      const formattedPrice = price ? `Rp ${price.toLocaleString('id-ID')}` : '-'
+      return {
+        title: title,
+        subtitle: `${formattedPrice} · ${brand || '-'} · ${statusLabels[status] || status}`,
+        media: media,
+      }
+    },
+  },
+}
