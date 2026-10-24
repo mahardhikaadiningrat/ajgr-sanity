@@ -45,10 +45,22 @@ export default {
       },
     },
     {
-      name: 'location',
-      title: 'Lokasi / Alamat',
+      name: 'meetingPoint',
+      title: ' Titik Kumpul',
       type: 'string',
-      description: 'Alamat lengkap tempat event',
+      description: 'Lokasi tempat berkumpul sebelum acara dimulai',
+    },
+    {
+      name: 'finishPoint',
+      title: '🏁 Titik Finish',
+      type: 'string',
+      description: 'Lokasi finish atau tujuan akhir acara',
+    },
+    {
+      name: 'location',
+      title: 'Lokasi / Alamat (Alternatif)',
+      type: 'string',
+      description: 'Alamat lengkap tempat event (opsional, jika berbeda dengan titik finish)',
     },
     {
       name: 'mapsLink',
