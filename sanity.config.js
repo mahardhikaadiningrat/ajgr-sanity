@@ -10,6 +10,7 @@ import event from './schemas/event'
 import brand from './schemas/brand' 
 import marketplace from './schemas/marketplace' 
 import bikeFittingTips from './schemas/bikeFittingTips'
+import merchandise from "./schemas/merchandise";
 
 export default defineConfig({
   name: 'default',
@@ -18,6 +19,6 @@ export default defineConfig({
   dataset: 'production',
   plugins: [structureTool(), visionTool()],
   schema: {
-    types: [post, bike, seller, siteSettings, event, brand, marketplace, bikeFittingTips],
+    types: [post, bike, seller, siteSettings, event, brand, marketplace, bikeFittingTips, merchandise],
   },
 })

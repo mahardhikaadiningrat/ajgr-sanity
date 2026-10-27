@@ -83,7 +83,7 @@ export default {
         },
       ],
     },
-    // === FIELD BARU: LINK RUTE ===
+    // === FIELD RUTE ===
     {
       name: 'routeUrl',
       title: 'Link Rute / GPX',
@@ -120,6 +120,13 @@ export default {
       type: 'string',
       description: 'Contoh: 2.5 jam',
       hidden: ({ parent }) => !parent?.routeUrl,
+    },
+    // === FIELD BARU: DOKUMENTASI DRIVE ===
+    {
+      name: 'documentationDriveLink',
+      title: 'Link Dokumentasi Google Drive',
+      type: 'url',
+      description: 'Paste link folder Google Drive berisi foto dokumentasi kegiatan (opsional).',
     },
   ],
   preview: {

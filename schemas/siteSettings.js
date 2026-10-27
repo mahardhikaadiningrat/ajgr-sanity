@@ -378,6 +378,12 @@ export default {
           initialValue: '6281234567890',
           validation: Rule => Rule.required().min(10),
         },
+        {
+          name: 'merchandiseOrderSheetUrl',
+          title: 'URL Google Sheets (Merchandise Orders)',
+          type: 'url',
+          description: 'https://script.google.com/macros/s/AKfycbysWxhVR34ix94LXQozFSvk6ufgbAQuyk_LVEuzHXaZufhSgFTaOI8Ax3w9JF9r3jQK/exec',
+        }
       ],
     },
   ]
